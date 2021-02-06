@@ -1,0 +1,58 @@
+openapi: 3.0.0
+info:
+    title: User Service API
+    description:
+    version: 0.0.0
+
+servers:
+    - url:
+    description:
+
+paths:
+    /api/users:
+        get:
+            summary:
+            description:
+            responses:
+                "200": # Status code
+                    description:
+                    content:
+                        application/json:
+                            schema:
+                                type:
+                                items:
+                                    type:
+                "400"
+                "404"
+                default:
+                    description: Unexpected error
+        post:
+            summary:
+            description:
+            responses:
+                "200":
+                    description:
+                    content:
+                        application/json:
+                            schema:
+                                type:
+                                items:
+                                    type:
+    /api/users/{userID}:
+        get:
+            summary: Returns a user by ID
+            parameters:
+                - in: path
+                    name: userID
+                    required: true
+                    type:
+            description:
+            responses:
+                "200":
+                    description:
+                    content:
+                        application/json:
+                            schema:
+                                type:
+                                items:
+                                    type:
