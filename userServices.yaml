@@ -11,27 +11,40 @@ servers:
 paths:
     /api/users:
         get:
-            summary:
-            description:
-            responses:
-                "200": # Status code
-                    description:
-                    content:
-                        application/json:
-                            schema:
-                                type:
-                                items:
-                                    type:
-                "400"
-                "404"
-                default:
-                    description: Unexpected error
-        post:
-            summary:
+            operationId: getUsers
+            summary: Returns a list of users.
             description:
             responses:
                 "200":
+                    description: A JSON array of users
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    type: object
+                "400"
                     description:
+                "404"
+                    description:
+                default:
+                    description: Unexpected error
+        post:
+            operationId: addUser
+            summary: Creates a user.
+            description:
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type:
+                            properties:
+                                username:
+                                    type:
+            responses:
+                "200":
+                    description: OK
                     content:
                         application/json:
                             schema:
@@ -40,19 +53,80 @@ paths:
                                     type:
     /api/users/{userID}:
         get:
+            operationId: getUserById
             summary: Returns a user by ID
-            parameters:
-                - in: path
-                    name: userID
-                    required: true
-                    type:
             description:
+            parameters:
+                - name: userId 
+                    in: path
+                    required: true
+                    description: The ID of the user to return.
+                    schema:
+                        type: 
+                        format:
+                        minimum:
             responses:
                 "200":
-                    description:
+                    description: A user object.
                     content:
                         application/json:
                             schema:
-                                type:
-                                items:
-                                    type:
+                                type: object
+                                properties:
+                                    id:
+                                        type:
+                                        format:
+                                        example:
+                                    name:
+                                        type:
+                                        example: test user
+                "400":
+                    description:
+                "404":
+                    description:
+                default:
+                    description: Unexpected error
+        put:
+            operationId: updateUser
+            summary:
+            description:
+            parameters:
+                - name: userId 
+                    in: path
+                    required: true
+                    description: The ID of the user to update.
+                    schema:
+                        type:
+                        format:
+                        minimum:
+            responses:
+                "200":
+                    description:
+                "401":
+                    description:
+                "404":
+                    description:
+                default:
+                    description: Unexpected error
+        delete:
+            operationId: deleteUser
+            summary:
+            description:
+            parameters:
+                - name: userId 
+                    in: path
+                    required: true
+                    description: The ID of the user to delete.
+                    schema:
+                        type:
+                        format:
+                        minimum:
+            responses:
+                "200":
+                    description:
+                "401":
+                    description:
+                "404":
+                    description:
+                default:
+                    description: Unexpected error
