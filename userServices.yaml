@@ -23,25 +23,14 @@ paths:
                                 type: array
                                 items:
                                     type: object
-                "400"
+                "400":
                     description:
-                "404"
+                "404":
+                    description:
+                "500":
                     description:
                 default:
                     description: Unexpected error
-        post:
-            operationId: addUser
-            summary: Creates a user.
-            description:
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            type:
-                            properties:
-                                username:
-                                    type:
             responses:
                 "200":
                     description: OK
@@ -128,5 +117,74 @@ paths:
                     description:
                 "404":
                     description:
+                "500":
+                    description:
                 default:
                     description: Unexpected error
+    /api/users/signup:
+        post:
+            operationId: addUser
+            summary: Creates a user.
+            description:
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type:
+                            properties:
+                                username:
+                                    type:
+            responses:
+                "201":
+                    description:
+                "400":
+                    description:
+                "500":
+                    description:
+                default:
+                    description:
+    /api/users/login:
+        post:
+            operationId: userLogin
+            summary: Login user.
+            description:
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type:
+                            properties:
+                                email:
+                                    type:
+                                password:
+                                    type:
+            responses:
+                "200":
+                    description:
+                "401":
+                    description:
+
+    /api/users/logout:
+        get:
+            operationId: userLogout
+            summary: Logout user.
+            description:
+            requestHeader:
+                required: true
+                content:
+                    header:
+                        schema:
+                            type:
+                                properties:
+                                    authorization:
+                                        type:
+
+
+            responses:
+                "500":
+                    description:
+                default:
+                    description:
+                      
