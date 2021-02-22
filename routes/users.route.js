@@ -4,10 +4,23 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../models/users.model");
 
-const { getAllUsers } = require("../controllers/users.controller");
+const { checkAuth } = require("../middleware/auth");
+const {
+    getAllUsers,
+    getUserById,
+    updateUser,
+    deleteUser,
+    userLogout,
+} = require("../controllers/users.controller");
 
 // Routes(GET, POST, PUT, DELETE)
+// Public
 route.get("/", getAllUsers);
+route.get("/:id", getUserById);
+// Protected
+route.patch("/:id", checkAuth, updateUser);
+route.delete("/:id", checkAuth, deleteUser);
+route.get("/logout", checkAuth, userLogout);
 
 route.post("/signup", (req, res, next) => {
     bcrypt.hash(req.body.password, 10, (err, hash) => {

@@ -16,6 +16,23 @@ exports.getAllUsers = async (req, res, next) => {
     }
 };
 
+// @desc    Get user by id
+// @route   GET /api/users/:id
+// @access  Public
+exports.getUserById = async (req, res, next) => {
+    try {
+    } catch (err) {}
+};
+
+// @desc    Update user
+// @route   PATCH /api/users/:id
+// @access  Protected
+exports.updateUser = async (req, res, next) => {};
+
+// @desc    Delete user
+// @route   DELETE /api/users/:id
+// @access  Protected
+
 // @desc    Register user
 // @route   POST /api/users/signup
 // @access  Public
@@ -26,4 +43,14 @@ exports.getAllUsers = async (req, res, next) => {
 
 // @desc    User Logout
 // @route   GET /api/users/logout
-// @access  Secure
+// @access  Protected
+exports.userLogout = async (req, res, next) => {
+    try {
+        req.removeHeader("Authorization");
+        next();
+    } catch (err) {
+        const error = new Error(err);
+        error.status = err.status || 500;
+        next(error);
+    }
+};
