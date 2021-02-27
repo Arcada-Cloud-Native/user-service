@@ -12,3 +12,13 @@ exports.checkAuth = (req, res, next) => {
         res.status(401).json({ message: "Auth failed" });
     }
 };
+
+exports.isOwner = (ownerId, req, res, next) => {
+    try {
+        const id = req.userData.userId;
+        if (id == ownerId) return;
+        else res.status(401).json({ message: "Access denied" });
+    } catch (err) {
+        res.status(401).json({ message: "Access denied" });
+    }
+};
