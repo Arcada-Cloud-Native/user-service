@@ -41,16 +41,12 @@ exports.getUserById = async (req, res, next) => {
 exports.updateUser = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const owner = await User.findById(id);
-
-        // isOwner(owner._id);
 
         const query = { _id: id };
         const update = { $set: req.body };
-        const options = {};
 
         const user = await User.updateOne(query, update);
-        res.status(200).json({ message: "User updated", user });
+        res.status(200).json({ message: "User updated" });
     } catch (err) {
         const error = new Error(err);
         error.status = err.status || 500;
@@ -64,13 +60,8 @@ exports.updateUser = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const owner = await User.findById(id);
-
-        console.log(owner);
-
-        isOwner(owner._id);
-
         const user = await User.remove({ _id: id });
+
         res.status(200).json({ message: "User deleted", user });
     } catch (err) {
         const error = new Error(err);
