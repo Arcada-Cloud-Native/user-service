@@ -1,7 +1,9 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const User = require("../models/users.model");
+const { isOwner } = require("../middleware/auth");
 
 // @desc    Get All Users
 // @route   GET /api/users
@@ -41,13 +43,14 @@ exports.updateUser = async (req, res, next) => {
         const { id } = req.params;
         const owner = await User.findById(id);
 
-        isOwner(owner._id);
+        // isOwner(owner._id);
 
-        const user = await User.update(
-            { _id: req.params.id },
-            { $set: req.body }
-        );
-        return res.status(200).json({ message: "User updated", user });
+        const query = { _id: id };
+        const update = { $set: req.body };
+        const options = {};
+
+        const user = await User.updateOne(query, update);
+        res.status(200).json({ message: "User updated", user });
     } catch (err) {
         const error = new Error(err);
         error.status = err.status || 500;
@@ -63,10 +66,12 @@ exports.deleteUser = async (req, res, next) => {
         const { id } = req.params;
         const owner = await User.findById(id);
 
+        console.log(owner);
+
         isOwner(owner._id);
 
         const user = await User.remove({ _id: id });
-        return res.status(200).json({ message: "User deleted" });
+        res.status(200).json({ message: "User deleted", user });
     } catch (err) {
         const error = new Error(err);
         error.status = err.status || 500;
@@ -113,13 +118,43 @@ exports.userSignup = async (req, res, next) => {
 // @desc    User Login
 // @route   POST /api/users
 // @access  Public
+exports.userLogin = async (req, res, next) => {
+    try {
+        // Check if user exists
+        const user = await User.findOne({ email: req.body.email });
+        if (!user)
+            res.status(401).json({ message: "Email or password is wrong" });
+
+        // Check password
+        const validPass = await bcrypt.compare(
+            req.body.password,
+            user.password
+        );
+        if (!validPass) {
+            return res
+                .status(401)
+                .json({ message: "Email or password is wrong" });
+        }
+
+        const token = jwt.sign(
+            { userId: user._id, email: user.email },
+            process.env.JWT_SECRET,
+            { expiresIn: "1h" }
+        );
+        res.status(200).json({ message: "Auth successfull", token });
+    } catch (err) {
+        const error = new Error(err);
+        error.status = err.status || 500;
+        next(error);
+    }
+};
 
 // @desc    User Logout
 // @route   GET /api/users/logout
 // @access  Protected
 exports.userLogout = async (req, res, next) => {
     try {
-        req.removeHeader("Authorization");
+        res.removeHeader("Authorization");
         next();
     } catch (err) {
         const error = new Error(err);
