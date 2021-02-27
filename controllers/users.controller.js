@@ -60,7 +60,7 @@ exports.updateUser = async (req, res, next) => {
 exports.deleteUser = async (req, res, next) => {
     try {
         const { id } = req.params;
-        const user = await User.remove({ _id: id });
+        const user = await User.deleteOne({ _id: id });
 
         res.status(200).json({ message: "User deleted", user });
     } catch (err) {
