@@ -132,6 +132,7 @@ exports.userLogin = async (req, res, next) => {
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         );
+        res.set("Authorization", token);
         res.status(200).json({ message: "Auth successfull", token });
     } catch (err) {
         const error = new Error(err);
@@ -146,7 +147,7 @@ exports.userLogin = async (req, res, next) => {
 exports.userLogout = async (req, res, next) => {
     try {
         res.removeHeader("Authorization");
-        next();
+        res.send("Logged out");
     } catch (err) {
         const error = new Error(err);
         error.status = err.status || 500;
