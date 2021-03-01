@@ -112,7 +112,9 @@ exports.userSignup = async (req, res, next) => {
 exports.userLogin = async (req, res, next) => {
     try {
         // Check if user exists
-        const user = await User.findOne({ email: req.body.email });
+        const user = await User.findOne({ email: req.body.email }).select(
+            "+password"
+        );
         if (!user)
             res.status(401).json({ message: "Email or password is wrong" });
 
