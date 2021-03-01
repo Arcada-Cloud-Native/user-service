@@ -11,7 +11,7 @@ servers:
 paths:
     /api/users:
         get:
-            operationId: getUsers
+            operationId: getAllUsers
             summary: Returns a list of users.
             description:
             responses:
@@ -23,34 +23,20 @@ paths:
                                 type: array
                                 items:
                                     type: object
-                "400"
-                    description:
-                "404"
-                    description:
+                                    properties:
+                                        _id:
+                                            type: String
+                                        name:
+                                            type: String
+                                        address:
+                                            type: String
+                                          email:
+                                            type: String
+                "500":
+                    description: Server error
                 default:
                     description: Unexpected error
-        post:
-            operationId: addUser
-            summary: Creates a user.
-            description:
-            requestBody:
-                required: true
-                content:
-                    application/json:
-                        schema:
-                            type:
-                            properties:
-                                username:
-                                    type:
-            responses:
-                "200":
-                    description: OK
-                    content:
-                        application/json:
-                            schema:
-                                type:
-                                items:
-                                    type:
+
     /api/users/{userID}:
         get:
             operationId: getUserById
@@ -74,11 +60,11 @@ paths:
                                 type: object
                                 properties:
                                     id:
-                                        type:
+                                        type: String
                                         format:
                                         example:
                                     name:
-                                        type:
+                                        type: String
                                         example: test user
                 "400":
                     description:
@@ -101,9 +87,9 @@ paths:
                         minimum:
             responses:
                 "200":
-                    description:
+                    description: User updated
                 "401":
-                    description:
+                    description: Authorization failed
                 "404":
                     description:
                 default:
@@ -123,10 +109,82 @@ paths:
                         minimum:
             responses:
                 "200":
-                    description:
+                    description: User deleted
                 "401":
-                    description:
+                    description: Auth failed
                 "404":
-                    description:
+                    description: User not found
+                "500":
+                    description: Server error
                 default:
                     description: Unexpected error
+    /api/users/signup:
+        post:
+            operationId: addUser
+            summary: Creates a user.
+            description:
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type:
+                            properties:
+                                name:
+                                    type: String
+                                address:
+                                    type: String
+                                email:
+                                    type: String
+                                password:
+                                    type: String
+                                
+            responses:
+                "201":
+                    description: User created
+                "400":
+                    description: User already exists
+                "500":
+                    description: Server error
+                default:
+                    description: Unexpected error
+    /api/users/login:
+        post:
+            operationId: userLogin
+            summary: Login user.
+            description:
+            requestBody:
+                required: true
+                content:
+                    application/json:
+                        schema:
+                            type:
+                            properties:
+                                email:
+                                    type: String
+                                password:
+                                    type: String
+            responses:
+                "200":
+                    description: 
+                "401":
+                    description: Email or password is incorrect
+
+    /api/users/logout:
+        get:
+            operationId: userLogout
+            summary: Logout user.
+            description:
+            requestHeader:
+                required: true
+                content:
+                    header: 
+                        properties:
+                            name: Authorization
+                                type: String
+            responses:
+                "500":
+                    description: Server error
+                default:
+                    description: Unexpected error
+                      
