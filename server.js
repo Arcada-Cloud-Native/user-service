@@ -21,7 +21,7 @@ app.use("/api/users", userRoutes);
 // Error handling
 app.use((req, res, next) => {
     const error = new Error(
-        "Requested resource not found! Supported resources are /adverts, /bookings, /cabins and /users"
+        "Requested resource not found! Supported resources are /api/users"
     );
     error.status = 404;
     next(error);
