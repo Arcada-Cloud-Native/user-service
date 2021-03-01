@@ -2,5 +2,7 @@
     "appService.zipIgnorePattern": [
         "node_modules{,/**}",
         ".vscode{,/**}"
-    ]
+    ],
+    "appService.defaultWebAppToDeploy": "/subscriptions/88c51928-90fd-4e80-9a35-c6469f401251/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/Beanhats-User-Service",
+    "appService.deploySubpath": "."
 }

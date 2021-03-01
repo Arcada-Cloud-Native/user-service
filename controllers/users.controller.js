@@ -75,7 +75,8 @@ exports.deleteUser = async (req, res, next) => {
 // @access  Public
 exports.userSignup = async (req, res, next) => {
     try {
-        const { name, address, email, password } = req.body;
+        const { firstName, lastName, address, email, 
+            town, state, phoneNumber, zipCode, password } = req.body;
         // Check if user exists
         const emailExists = await User.findOne({ email });
         if (emailExists)
@@ -89,9 +90,14 @@ exports.userSignup = async (req, res, next) => {
             } else {
                 const user = new User({
                     _id: new mongoose.Types.ObjectId(),
-                    name,
+                    firstName,
+                    lastName,
                     address,
                     email,
+                    town,
+                    state,
+                    phoneNumber,
+                    zipCode,
                     password: hash,
                 });
 
