@@ -1,19 +1,19 @@
 openapi: 3.0.0
 info:
     title: User Service API
-    description:
+    description: ""
     version: 0.0.0
 
 servers:
-    - url:
-    description:
+    - url: ""
+      description: ""
 
 paths:
     /api/users:
         get:
             operationId: getAllUsers
             summary: Returns a list of users.
-            description:
+            description: ""
             responses:
                 "200":
                     description: A JSON array of users
@@ -25,32 +25,30 @@ paths:
                                     type: object
                                     properties:
                                         _id:
-                                            type: String
+                                            type: string
                                         name:
-                                            type: String
+                                            type: string
                                         address:
-                                            type: String
-                                          email:
-                                            type: String
+                                            type: string
+                                        email:
+                                            type: string
                 "500":
                     description: Server error
                 default:
                     description: Unexpected error
 
-    /api/users/{userID}:
+    /api/users/{userId}:
         get:
             operationId: getUserById
             summary: Returns a user by ID
-            description:
+            description: ""
             parameters:
-                - name: userId 
-                    in: path
-                    required: true
-                    description: The ID of the user to return.
-                    schema:
-                        type: 
-                        format:
-                        minimum:
+                - name: userId
+                  in: path
+                  required: true
+                  description: The ID of the user to return.
+                  schema:
+                      type: string
             responses:
                 "200":
                     description: A user object.
@@ -60,53 +58,48 @@ paths:
                                 type: object
                                 properties:
                                     id:
-                                        type: String
-                                        format:
+                                        type: string
                                         example:
                                     name:
-                                        type: String
+                                        type: string
                                         example: test user
                 "400":
-                    description:
+                    description: ""
                 "404":
-                    description:
+                    description: ""
                 default:
                     description: Unexpected error
-        put:
+        patch:
             operationId: updateUser
-            summary:
-            description:
+            summary: ""
+            description: ""
             parameters:
-                - name: userId 
-                    in: path
-                    required: true
-                    description: The ID of the user to update.
-                    schema:
-                        type:
-                        format:
-                        minimum:
+                - name: userId
+                  in: path
+                  required: true
+                  description: The ID of the user to update.
+                  schema:
+                      type: string
             responses:
                 "200":
                     description: User updated
                 "401":
                     description: Authorization failed
                 "404":
-                    description:
+                    description: ""
                 default:
                     description: Unexpected error
         delete:
             operationId: deleteUser
-            summary:
-            description:
+            summary: ""
+            description: ""
             parameters:
-                - name: userId 
-                    in: path
-                    required: true
-                    description: The ID of the user to delete.
-                    schema:
-                        type:
-                        format:
-                        minimum:
+                - name: userId
+                  in: path
+                  required: true
+                  description: The ID of the user to delete.
+                  schema:
+                      type: string
             responses:
                 "200":
                     description: User deleted
@@ -122,23 +115,23 @@ paths:
         post:
             operationId: addUser
             summary: Creates a user.
-            description:
+            description: ""
             requestBody:
                 required: true
                 content:
                     application/json:
                         schema:
-                            type:
+                            type: object
                             properties:
                                 name:
-                                    type: String
+                                    type: string
                                 address:
-                                    type: String
+                                    type: string
                                 email:
-                                    type: String
+                                    type: string
                                 password:
-                                    type: String
-                                
+                                    type: string
+
             responses:
                 "201":
                     description: User created
@@ -152,21 +145,21 @@ paths:
         post:
             operationId: userLogin
             summary: Login user.
-            description:
+            description: ""
             requestBody:
                 required: true
                 content:
                     application/json:
                         schema:
-                            type:
+                            type: object
                             properties:
                                 email:
-                                    type: String
+                                    type: string
                                 password:
-                                    type: String
+                                    type: string
             responses:
                 "200":
-                    description: 
+                    description: ""
                 "401":
                     description: Email or password is incorrect
 
@@ -174,17 +167,9 @@ paths:
         get:
             operationId: userLogout
             summary: Logout user.
-            description:
-            requestHeader:
-                required: true
-                content:
-                    header: 
-                        properties:
-                            name: Authorization
-                                type: String
+            description: ""
             responses:
                 "500":
                     description: Server error
                 default:
                     description: Unexpected error
-                      
