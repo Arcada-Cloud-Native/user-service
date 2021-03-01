@@ -20,9 +20,9 @@ on:
     types: [created]
 
 env:
-  AZURE_WEBAPP_NAME: ${{ env.AZURE_WEBAPP_NAME }}   # set this to your application's name
-  AZURE_WEBAPP_PACKAGE_PATH: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}      # set this to the path to your web app project, defaults to the repository root
-  NODE_VERSION: ${{ env.NODE_VERSION }}               # set this to the node version to use
+  AZURE_WEBAPP_NAME: 'Beanhats-User-Service'   # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
+  NODE_VERSION: '10.x'              # set this to the node version to use
 
 jobs:
   build-and-deploy:
