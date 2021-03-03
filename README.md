@@ -16,6 +16,18 @@ https://beanhats-user-service.azurewebsites.net/api/users
 
 * /signup
   * POST - creates a user
+  post a JSON with this info filled and the user will be created
+  {
+    "firstName": "", 
+    "lastName": "", 
+    "address": "", 
+    "email": "", 
+    "town": "", 
+    "state": "", 
+    "phoneNumber": "", 
+    "zipCode": "",
+    "password": ""
+  }
 
 * /login
   * POST - userLogin
