@@ -17,6 +17,7 @@ https://beanhats-user-service.azurewebsites.net/api/users
 * /signup
   * POST - creates a user
   post a JSON with this info filled and the user will be created
+  
   {
     "firstName": "", 
     "lastName": "", 
@@ -31,6 +32,14 @@ https://beanhats-user-service.azurewebsites.net/api/users
 
 * /login
   * POST - userLogin
+  post a JSON with 
+  
+  {
+    "email": "", 
+    "password": ""
+  }
+  
+  and you will be logged in and get a hash-token in return
 
 * /logout
   * GET - logout user
