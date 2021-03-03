@@ -11,8 +11,9 @@ https://beanhats-user-service.azurewebsites.net/api/users
 
 * /{userId}
   * GET - return a user by ID
-  * PATCH - updateUser
-  * DELETE - deleteUser
+  * PATCH - updateUser (Needs Authorization token from login)
+  
+  * DELETE - deleteUser (Needs Authorization token from login)
 
 * /signup
   * POST - creates a user
@@ -39,7 +40,8 @@ https://beanhats-user-service.azurewebsites.net/api/users
     "password": ""
   }
   
-  and you will be logged in and get a hash-token in return
+  and you will be logged in and get a hash-token in return, you have to add that token to "Headers" as Authorization
 
 * /logout
   * GET - logout user
+  * removes Auth header and key is removed
