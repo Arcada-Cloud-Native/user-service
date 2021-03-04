@@ -19,6 +19,20 @@ exports.getAllUsers = async (req, res, next) => {
     }
 };
 
+// @desc    Get current user
+// @route   GET /api/users/current
+// @access  Protected
+exports.getCurrentUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.userData._id);
+        res.status(200).json(user);
+    } catch (err) {
+        const error = new Error(err);
+        error.status = err.status || 500;
+        next(error);
+    }
+};
+
 // @desc    Get user by id
 // @route   GET /api/users/:id
 // @access  Public
@@ -130,7 +144,7 @@ exports.userLogin = async (req, res, next) => {
         }
 
         const token = jwt.sign(
-            { userId: user._id, email: user.email },
+            { _id: user._id, email: user.email },
             process.env.JWT_SECRET,
             { expiresIn: "1h" }
         );

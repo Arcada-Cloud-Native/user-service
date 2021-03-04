@@ -3,6 +3,7 @@ const route = require("express").Router();
 const { checkAuth } = require("../middleware/auth");
 const {
     getAllUsers,
+    getCurrentUser,
     getUserById,
     updateUser,
     deleteUser,
@@ -13,6 +14,7 @@ const {
 
 // Public
 route.get("/", getAllUsers);
+route.get("/current", checkAuth, getCurrentUser);
 route.get("/logout", checkAuth, userLogout);
 route.get("/:id", getUserById);
 route.patch("/:id", checkAuth, updateUser);
