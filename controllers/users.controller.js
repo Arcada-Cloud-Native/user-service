@@ -35,7 +35,7 @@ exports.getCurrentUser = async (req, res, next) => {
 
 // @desc    Get user by id
 // @route   GET /api/users/:id
-// @access  Public
+// @access  Protected
 exports.getUserById = async (req, res, next) => {
     try {
         const { id } = req.params;
@@ -89,8 +89,17 @@ exports.deleteUser = async (req, res, next) => {
 // @access  Public
 exports.userSignup = async (req, res, next) => {
     try {
-        const { firstName, lastName, address, email, 
-            town, state, phoneNumber, zipCode, password } = req.body;
+        const {
+            firstName,
+            lastName,
+            address,
+            email,
+            town,
+            state,
+            phoneNumber,
+            zipCode,
+            password,
+        } = req.body;
         // Check if user exists
         const emailExists = await User.findOne({ email });
         if (emailExists)
