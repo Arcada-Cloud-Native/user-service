@@ -15,7 +15,7 @@ exports.checkAuth = (req, res, next) => {
 
 exports.isOwner = (ownerId, req, res, next) => {
     try {
-        const id = req.userData.userId;
+        const id = req.userData._id;
         if (id == ownerId) return;
         else res.status(401).json({ message: "Access denied" });
     } catch (err) {
